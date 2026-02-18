@@ -87,7 +87,21 @@ SELECT CITY , COUNT(BATHROOMS)
 								
 								
 --8. How many properties are in Gauteng? 
+			SELECT PROVINCE, COUNT(*)		
+			AS total_properties_in_GAUTENG
+			from property25_detail_info
+			WHERE PROVINCE = 'GAUTENG'
+			GROUP BY PROVINCE
+
+
+
 --9. How many properties per province have floor size greater than 200? 
+SELECT PROVINCE, COUNT(*)	
+AS TOTAL_FLOOR_SIZE_PER_PROV
+FROM property25_detail_info
+WHERE FLOOR_SIZE >=200
+GROUP BY PROVINCE
+			
 --10. How many distinct provinces are in the table? 
 
 --SECTION 2 � SUM Aggregations (10 Questions) 
