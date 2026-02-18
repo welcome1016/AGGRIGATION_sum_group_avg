@@ -6,18 +6,22 @@ SELECT * FROM dbo.property25_detail_info
 	AS Total_Properties
 	FROM dbo.property25_detail_info
 
+	--------------------------------////////////////////////------------------
+
 --2. How many properties are listed in each province? 
 	SELECT PROVINCE, COUNT(*)
 	AS total_properties
 	from dbo.property25_detail_info
 	Group by [PROVINCE]
+	----------------------//////////////////////////-------------------
 
 
---3. How many properties are listed in each city? 
-	SELECT CITY , COUNT(CITY)
-	AS total_cities
-	from property25_detail_info
-	Group by [City]
+								
+								--3. How many properties are listed in each city? 
+									SELECT CITY , COUNT(CITY)
+									AS total_cities
+									from property25_detail_info
+									Group by [City]
 	
 
 --4. How many properties have more than 2 bedrooms? 
@@ -26,19 +30,62 @@ SELECT * FROM dbo.property25_detail_info
 	from property25_detail_info
 	Where BEDROOMS >=2
 	Group by [city]
-
-	SELECT CITY 
-	as Morethan_two_bedrooms
-	from property25_detail_info
-	Where BEDROOMS >=2
-	Group by [city]
+										-------///////////////------------
+										SELECT CITY, PROVINCE , COUNT(BEDROOMS)
+										as Morethan_two_bedrooms
+										from property25_detail_info
+										Where BEDROOMS >=2
+										Group by city,province;
 	
 
 --5. How many properties have 2 or more bathrooms? 
 
+SELECT CITY , COUNT(BATHROOMS)
+	as Morethan_two_bathrooms
+	from property25_detail_info
+	Where BATHROOMS >=2
+	Group by [city]
+								----------IMPLIMENTING DEFFIRENT OPTIONS---------
+								--------///////////////////////////////--------
+									SELECT CITY, PROVINCE , COUNT(BATHROOMS)
+									as Morethan_two_bathrooms
+									from property25_detail_info
+									Where BATHROOMS >=2
+									Group by city,province;
+
 
 --6. How many properties have parking for at least 2 cars? 
+		
+		SELECT 
+		* FROM property25_detail_info
+		WHERE PARKING = 2
+		ORDER BY PARKING DESC
+		
+		---- NOW WE'RE ABLE TO GET ALL THE PROPERTIES WITH WITH 2 PARKING
+		-- NOW WE HAVE TO GET PROPERTIES WITH MORETHAN 2 PARKING
+				SELECT COUNT(PARKING)
+					AS PROPERTY_WITH_2_PARKING 		
+					FROM property25_detail_info
+					WHERE PARKING = 2
+						GROUP BY PARKING;
+			
+			
 --7. How many properties are priced above R3,000,000? 
+---------////////////////-------------------
+		SELECT PROVINCE,CITY, COUNT(*)
+		AS TOTAL_PROP_ABOVE_R3M
+		FROM  property25_detail_info
+		GROUP BY PROVINCE,CITY
+								----NOW WE'RE SEEING LIGHT OF WHAT IS HAPPENING
+								---------------------////////////-----------------
+								SELECT COUNT(PROPERTY_PRICE)
+								AS TOTAL_PROP_ABOVE_R3M
+								FROM property25_detail_info
+								WHERE PROPERTY_PRICE = 3000000
+
+								
+								
+								
 --8. How many properties are in Gauteng? 
 --9. How many properties per province have floor size greater than 200? 
 --10. How many distinct provinces are in the table? 
