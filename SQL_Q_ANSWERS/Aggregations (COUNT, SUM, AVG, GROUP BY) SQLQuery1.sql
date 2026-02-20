@@ -95,12 +95,12 @@ SELECT CITY , COUNT(BATHROOMS)
 
 
 
---9. How many properties per province have floor size greater than 200? 
-SELECT PROVINCE ,COUNT( PROVINCE)	
-AS TOTAL_FLOOR_SIZE_PER_PROV
-FROM property25_detail_info
-WHERE FLOOR_SIZE >=200
-GROUP BY PROVINCE
+						--9. How many properties per province have floor size greater than 200? 
+						SELECT PROVINCE ,COUNT( PROVINCE)	
+						AS TOTAL_FLOOR_SIZE_PER_PROV
+						FROM property25_detail_info
+						WHERE FLOOR_SIZE >=200
+						GROUP BY PROVINCE
 
 			
 --10. How many distinct provinces are in the table? 
@@ -109,26 +109,68 @@ SELECT COUNT(DISTINCT PROVINCE)
 	FROM property25_detail_info
 	--- WE TOOK ALL THE PROVINCES AND COUNTED THE DISTINCT PROVINCES IN THE TABLE
 
-
-
-
 --SECTION 2 � SUM Aggregations (10 Questions) 
 
---11. What is the total value of all properties combined? 
-	
-	
+								--11. What is the total value of all properties combined? 
+									SELECT SUM(cast(PROPERTY_PRICE as bigint))
+									AS TOTAL_VALUE_OF_ALL_PROPERTIES
+										from property25_detail_info
 
 --12. What is the total property value per province? 
+		SELECT PROVINCE ,SUM(CAST(PROPERTY_PRICE AS bigint))
+		AS TOTAL_PROPERT_PRICE_PER_PROVINCE
+		FROM property25_detail_info
+		GROUP BY PROVINCE
+	
 --13. What is the total property value per city? 
+											SELECT CITY,
+											SUM(cast(PROPERTY_PRICE as bigint))
+											AS TOTAL_VALUE_PER_CITY
+											FROM property25_detail_info
+											GROUP BY CITY
+
 --14. What is the total monthly repayment for all properties? 
+		SELECT SUM(cast(monthly_repayment as bigint))
+		AS total_monthly_repayment_All_prop
+		FROM property25_detail_info
+
 --15. What is the total monthly repayment per province? 
+											SELECT PROVINCE, SUM(monthly_repayment)
+											as total_monthly_repayment_per_province
+											from property25_detail_info
+											group by Province 
+											Order by total_monthly_repayment_per_province desc;
+
 --16. What is the total once-off cost for all properties? 
+				SELECT sum(cast(Total_Once_off_Costs as bigint))
+				as total_once_off_cost_for_all_properties
+				from property25_detail_info
+
 --17. What is the total once-off cost per province? 
+									SELECT PROVINCE, sum(cast(Total_Once_off_Costs as bigint))
+													as total_once_off_cost_for_per_properties
+													from property25_detail_info
+													group by Province;
 --18. What is the total property value for Gauteng? 
---19. What is the total property value for properties priced above R4,000,000? 
+SELECT PROVINCE, sum(cast(PROPERTY_PRICE as bigint))
+				as total_property_value_for_GAUTENG
+				from property25_detail_info
+				where PROVINCE = 'GAUTENG'
+				group by Province;
+--19. What is the total property value for properties priced above R4,000,000?
+									SELECT SUM(cast(PROPERTY_PRICE as bigint))
+									AS TOTAL_VALUE_OF_PROP_ABOVE_R4M
+										FROM  property25_detail_info
+									Where PROPERTY_PRICE >= 4000000;
+
 --20. What is the total minimum gross monthly income required per province? 
+			SELECT PROVINCE,SUM(Min_Gross_Monthly_income)
+			as total_minimum_gross_monthly_income_required_per_province
+			from property25_detail_info
+			group by  PROVINCE
 
 --SECTION 3 � AVG Aggregations (10 Questions) 
+
 
 --21. What is the average property price overall? 
 --22. What is the average property price per province? 
