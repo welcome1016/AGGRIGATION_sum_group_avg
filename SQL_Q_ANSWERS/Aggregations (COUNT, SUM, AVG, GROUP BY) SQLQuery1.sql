@@ -96,13 +96,21 @@ SELECT CITY , COUNT(BATHROOMS)
 
 
 --9. How many properties per province have floor size greater than 200? 
-SELECT PROVINCE, COUNT(*)	
+SELECT PROVINCE ,COUNT( PROVINCE)	
 AS TOTAL_FLOOR_SIZE_PER_PROV
 FROM property25_detail_info
 WHERE FLOOR_SIZE >=200
 GROUP BY PROVINCE
+
 			
 --10. How many distinct provinces are in the table? 
+SELECT COUNT(DISTINCT PROVINCE)
+	AS DISTINCT_PROVINCES
+	FROM property25_detail_info
+	--- WE TOOK ALL THE PROVINCES AND COUNTED THE DISTINCT PROVINCES IN THE TABLE
+
+
+
 
 --SECTION 2 � SUM Aggregations (10 Questions) 
 
