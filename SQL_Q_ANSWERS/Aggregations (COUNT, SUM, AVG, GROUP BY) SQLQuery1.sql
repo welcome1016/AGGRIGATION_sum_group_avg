@@ -115,6 +115,9 @@ SELECT COUNT(DISTINCT PROVINCE)
 --SECTION 2 � SUM Aggregations (10 Questions) 
 
 --11. What is the total value of all properties combined? 
+	
+	
+
 --12. What is the total property value per province? 
 --13. What is the total property value per city? 
 --14. What is the total monthly repayment for all properties? 
