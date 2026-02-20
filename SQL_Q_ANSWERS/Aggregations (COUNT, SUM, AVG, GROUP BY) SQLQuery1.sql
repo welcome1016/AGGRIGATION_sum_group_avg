@@ -173,27 +173,141 @@ SELECT PROVINCE, sum(cast(PROPERTY_PRICE as bigint))
 
 
 --21. What is the average property price overall? 
---22. What is the average property price per province? 
+	SELECT AVG(cast(PROPERTY_PRICE as bigint))
+	AS AVERAGE_PROPERTY_PRICE_OVERALL
+	FROM property25_detail_info
+
+									--22. What is the average property price per province? 
+									SELECT PROVINCE, AVG(cast(PROPERTY_PRICE as bigint))
+									AS AVG_PROP_PER_PROVINCE
+									FROM property25_detail_info
+									GROUP BY PROVINCE;
+
+
+
+
 --23. What is the average property price per city? 
+	SELECT CITY , AVG(CAST (PROPERTY_PRICE AS BIGINT))
+	AS AVG_PROP_PRICE_PER_CITY
+	FROM property25_detail_info
+	GROUP BY CITY
+
 --24. What is the average number of bedrooms per province? 
+		SELECT PROVINCE,  AVG(PROPERTY_PRICE) 
+		AS NUMBER_OF_BEDROOMS_PER_PROVINCE
+		FROM property25_detail_info
+		GROUP BY PROVINCE;
+
 --25. What is the average number of bathrooms per province? 
+
 --26. What is the average floor size per province? 
+SELECT PROVINCE,  AVG(PROPERTY_PRICE) 
+		AS NUMBER_OF_BEDROOMS_PER_PROVINCE
+		FROM property25_detail_info
+		GROUP BY PROVINCE;
+
+
 --27. What is the average monthly repayment per province? 
+SELECT PROVINCE,  AVG(CAST(PROPERTY_PRICE AS bigint)) 
+		AS NUMBER_OF_BEDROOMS_PER_PROVINCE
+		FROM property25_detail_info
+		GROUP BY PROVINCE;
+
+
 --28. What is the average once-off cost per province? 
+SELECT PROVINCE,  AVG(CAST(Total_Once_off_Costs AS bigint)) 
+		AS NUMBER_OF_BEDROOMS_PER_PROVINCE
+		FROM property25_detail_info
+		GROUP BY PROVINCE;
+
+
 --29. What is the average minimum gross monthly income per province? 
+									SELECT PROVINCE,  AVG(CAST(Min_Gross_Monthly_income AS bigint)) 
+											AS NUMBER_OF_BEDROOMS_PER_PROVINCE
+											FROM property25_detail_info
+											GROUP BY PROVINCE;
+
+
 --30. What is the average property price for properties above R3,000,000? 
+SELECT AVG(cast(PROPERTY_PRICE as bigint))
+	AS AVERAGE_PROPERTY_PRICE_ABOVE_R3M
+	FROM property25_detail_info
+	WHERE PROPERTY_PRICE >= 3000000
 
 
 --SECTION 4 � GROUP BY + Filtering (10 Questions) 
 
 --31. Which province has the highest average property price? 
+										SELECT TOP 1 PROVINCE, AVG(cast(PROPERTY_PRICE as bigint))
+											AS AVG_PROP_PER_PROVINCE
+											FROM property25_detail_info
+											GROUP BY PROVINCE
+											Order by AVG_PROP_PER_PROVINCE DESC
+
+
 --32. Which province has the lowest average property price? 
+SELECT TOP 1 PROVINCE, AVG(cast(PROPERTY_PRICE as bigint))
+	AS AVG_PROP_PER_PROVINCE
+	FROM property25_detail_info
+	GROUP BY PROVINCE
+	Order by AVG_PROP_PER_PROVINCE ASC
+
+
 --33. Which city has the highest total property value? 
+											SELECT TOP 1 CITY, SUM(cast(PROPERTY_PRICE as bigint))
+												AS TOTAL_VALUE_PER_CITY
+												FROM property25_detail_info
+												GROUP BY CITY
+												Order by TOTAL_VALUE_PER_CITY DESC
+
+
 --34. Which city has the lowest average property price? 
+SELECT TOP 1 CITY , AVG(CAST (PROPERTY_PRICE AS BIGINT))
+	AS AVG_PROP_PRICE_PER_CITY
+	FROM property25_detail_info
+	GROUP BY CITY
+	Order by AVG_PROP_PRICE_PER_CITY ASC
+
 --35. How many properties per province are priced above R2,000,000? 
+									SELECT PROVINCE, COUNT(*)
+									AS TOTAL_PROP_ABOVE_R2M
+									FROM  property25_detail_info
+									WHERE PROPERTY_PRICE >= 2000000
+
+
 --36. What is the average floor size per province for properties above R3,000,000? 
+										SELECT PROVINCE, AVG(FLOOR_SIZE)
+										AS AVG_FLOOR_SIZE_PER_PROVINCE_ABOVE_R3M
+											FROM property25_detail_info
+											WHERE PROPERTY_PRICE >= 3000000
+											GROUP BY PROVINCE
+
 --37. What is the total property value per province for properties with 3 or more bedrooms? 
+SELECT PROVINCE, SUM(cast(PROPERTY_PRICE as bigint))
+AS TOTAL_PROP_VALUE_PER_PROVINCE_3_BEDROOMS
+	FROM property25_detail_info
+WHERE BEDROOMS >= 3
+
+
+
 --38. What is the average monthly repayment per province for properties above R4,000,000? 
+											SELECT PROVINCE, AVG(Monthly_Repayment)
+												AS AVG_MONTHLY_REPAYMENT_PER_PROVINCE_ABOVE_R4M
+												FROM property25_detail_info
+													WHERE PROPERTY_PRICE >= 4000000
+														GROUP BY PROVINCE
+
+	
 --39. How many properties per city have parking for 2 or more cars? 
+			SELECT CITY, COUNT(*)	
+			AS TOTAL_PROP_WITH_2_PARKING_PER_CITY
+			FROM property25_detail_info
+			WHERE PARKING >= 2
+			GROUP BY CITY
 --40. What is the average minimum gross monthly income per province for properties above 
 --R5,000,000? 
+										SELECT PROVINCE, AVG(Min_Gross_Monthly_income)
+										AS AVG_MIN_GROSS_MONTHLY_INCOME_PER_PROVINCE_ABOVE_R5M
+											FROM property25_detail_info
+										WHERE PROPERTY_PRICE >= 5000000	
+										GROUP BY PROVINCE
